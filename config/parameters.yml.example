@@ -1,0 +1,21 @@
+parameters:
+
+  github_token: 'token'
+  github_repo_user_name: 'name'
+  github_repo_name: 'test'
+
+  slack_hook_url: 'https://hooks.slack.com/services/111/222/333'
+  slack_public_channel: '@@channel'
+  slack_username: 'Pull Requests Reminder'
+  slack_icon_emoji: ':ghost:'
+
+  mailer_transport: smtp
+  mailer_host: 127.0.0.1
+  mailer_user: null
+  mailer_password: null
+  #secret: 35969611e0895fd0978cc035b83eb81a1fc347e4
+
+  notification_from: 'reminder@company.com'
+  notification_subject: 'Daily pull requests reminder'
+  notification_emails:
+    - test@test.com
