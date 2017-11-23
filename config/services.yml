@@ -1,0 +1,35 @@
+services:
+
+  github_api:
+    class: App\Service\Github\GithubApi
+    arguments: ['%github_token%', '%github_repo_user_name%', '%github_repo_name%']
+
+  slack_reminder:
+    class: App\Service\Reminder
+    arguments: ['@github_api', '@slack_sender']
+
+  email_reminder:
+    class: App\Service\Reminder
+    arguments: ['@github_api', '@email_sender']
+
+  slack_sender:
+    class: App\Service\Notification\Sender\SlackSender
+    arguments: ['@guzzle', '%slack_hook_url%', '%slack_public_channel%', '%slack_username%', '%slack_icon_emoji%']
+
+  email_sender:
+    class: App\Service\Notification\Sender\EmailSender
+    arguments: ['@swiftmailer', '%notification_from%', '%notification_subject%', '%notification_emails%']
+
+  guzzle:
+    class: GuzzleHttp\Client
+
+  swiftmailer:
+    class: Swift_Mailer
+    arguments: ['@swiftmailer_transport']
+
+  swiftmailer_transport:
+    class: Swift_SmtpTransport
+    arguments: ['%mailer_host%']
+    calls:
+      - [setUsername, ['%mailer_user%']]
+      - [setPassword, ['%mailer_password%']]
